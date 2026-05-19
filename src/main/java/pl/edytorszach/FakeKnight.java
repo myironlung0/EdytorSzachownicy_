@@ -6,6 +6,10 @@ import java.util.Set;
 public class FakeKnight implements KnightInterface{
     private Set<Point> attacksToReturn;
 
+    public FakeKnight() {
+        attacksToReturn = null;
+    }
+
     public FakeKnight(Set<Point> attacksToReturn) {
         this.attacksToReturn = attacksToReturn;
     }
@@ -15,15 +19,15 @@ public class FakeKnight implements KnightInterface{
         return attacksToReturn;
     }
 
-    @Override
-    public Point calculateBouncePosition(int n, int knightX, int knightY, int dx, int dy){
-        return null;
-    }
-
-    @Override
-    public Point calculateMirrorPosition(int n, int lustroX, int lustroY, int dx, int dy, Set<Point> lustra, Set<Point> odwiedzone){
-        return null;
-    }
+//    @Override
+//    public Point calculateBouncePosition(int n, int knightX, int knightY, int dx, int dy){
+//        return null;
+//    }
+//
+//    @Override
+//    public Point calculateMirrorPosition(int n, int lustroX, int lustroY, int dx, int dy, Set<Point> lustra, Set<Point> odwiedzone){
+//        return null;
+//    }
 
     public void setAttacksToReturn(Set<Point> attacksToReturn) {
         this.attacksToReturn = attacksToReturn;

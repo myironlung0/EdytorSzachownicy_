@@ -28,6 +28,10 @@ public class ChessBoard {
         return knight.calculateAttack(n, knightPosition.x, knightPosition.y, przeszkody, lustra);
     }
 
+    public void addObstacle(int x, int y){
+        przeszkody.add(new Point(x,y));
+    }
+
 //    GETTERS AND SETTERS
     public int getN() {
         return n;
@@ -47,5 +51,9 @@ public class ChessBoard {
 
     public Set<Point> getLustra() {
         return lustra;
+    }
+
+    public void setPrzeszkody(Set<Point> przeszkody) {
+        this.przeszkody = przeszkody;
     }
 }

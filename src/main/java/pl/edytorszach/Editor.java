@@ -3,9 +3,11 @@ package pl.edytorszach;
 // obsluga stdin stdout
 // MAIN CLASS
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Set;
 
 public class Editor {
     private ChessBoard board;
@@ -22,50 +24,60 @@ public class Editor {
         this.output = output;
     }
 
-    public void run(){
+    public void run() {
         output.println("CHESSBOARD EDITOR. What do you want to do?:");
         output.println("Please choose one:\n" +
-                "create chessboard\n" +
-                "create obstacles\n" +
-                "move knight\n" +
-                "show attacks\n" +
-                "save to file\n" +
-                "load from file\n" +
+                "create_chessboard " + "[size] \n" +
+                "add_obstacle " + "[x] [y] \n" +
+                "move_knight " + "[x] [y] \n" +
+                "show_attacks\n" +
+                "save_to_file " + "[filepath] \n" +
+                "load_from_file " + "[filepath] \n" +
                 "exit");
-        try{
+        try {
             String line;
             while ((line = input.readLine()) != null) {
                 processCommand(line.trim());
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             System.err.print("IO exception in editor.");
         }
     }
 
-    private void processCommand(String input){
+    private void processCommand(String userInput) {
         // TODO: switch case z komendami
-        switch(input.toLowerCase()){
-            case "create chessboard":
-                output.println("Creating new chessboard. Please provide size:");
+        String[] fromInput = userInput.toLowerCase().split(" ");
+        String command = fromInput[0];
+        switch (command) {
+            case "create_chessboard":
+                board = new ChessBoard(Integer.parseInt(fromInput[1]), board.getKnight());
                 break;
-            case "create obstacles":
-                output.println("Creating obstacles. Please provide position:");
+            case "add_obstacle":
+                int x = Integer.parseInt(fromInput[1]);
+                int y = Integer.parseInt(fromInput[2]);
+                board.addObstacle(x, y);
                 break;
-            case "move knight":
-                output.println("Moving knight. Please provide new position:");
+            case "move_knight":
+                int kX = Integer.parseInt(fromInput[1]);
+                int kY = Integer.parseInt(fromInput[2]);
+                board.placeKnight(kX, kY);
                 break;
-            case "show attacks":
+            case "show_attacks":
+                Set<Point> attacked = board.getAttackedFields();
                 output.println("Attacked fields:");
+                for(Point p : attacked){ output.println("  (" + p.x + "," + p.y + ")"); }
                 break;
-            case "save to file":
-                output.println("Saving chessboard to file.");
-                fileManager.save();
+            case "save_to_file":
+                output.println("Saving chessboard to file...");
+                fileManager.save(fromInput[1], board);
                 break;
-            case "load from file":
-                output.println("Loading chessboard from file.");
-                fileManager.load();
+            case "load_from_file":
+                output.println("Loading chessboard from file...");
+                fileManager.load(fromInput[1], board);
                 break;
             case "exit":
+                //System.exit(0);
+                output.println("CYA!");
                 System.exit(0);
             default:
                 output.println("Unknown command.");
