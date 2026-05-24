@@ -8,14 +8,14 @@ public class ChessBoard {
     private int n;
     private KnightInterface knight;
     private Point knightPosition;   // pozycja skoczka, null jesli nie ustawiony
-    private Set<Point> przeszkody;
-    private Set<Point> lustra;
+    private Set<Point> obstacles;
+    private Set<Point> mirrors;
 
     public ChessBoard(int n, KnightInterface knight) {
         this.n = n;
         this.knight = knight;
-        this.przeszkody = new HashSet<>();
-        this.lustra = new HashSet<>();
+        this.obstacles = new HashSet<>();
+        this.mirrors = new HashSet<>();
         this.knightPosition = null;
     }
 
@@ -25,11 +25,11 @@ public class ChessBoard {
     }
 
     public Set<Point> getAttackedFields(){
-        return knight.calculateAttack(n, knightPosition.x, knightPosition.y, przeszkody, lustra);
+        return knight.calculateAttack(n, knightPosition.x, knightPosition.y, obstacles, mirrors);
     }
 
     public void addObstacle(int x, int y){
-        przeszkody.add(new Point(x,y));
+        obstacles.add(new Point(x,y));
     }
 
 //    GETTERS AND SETTERS
@@ -45,15 +45,15 @@ public class ChessBoard {
         return knightPosition;
     }
 
-    public Set<Point> getPrzeszkody() {
-        return przeszkody;
+    public Set<Point> getObstacles() {
+        return obstacles;
     }
 
-    public Set<Point> getLustra() {
-        return lustra;
+    public Set<Point> getMirrors() {
+        return mirrors;
     }
 
-    public void setPrzeszkody(Set<Point> przeszkody) {
-        this.przeszkody = przeszkody;
+    public void setObstacles(Set<Point> przeszkody) {
+        this.obstacles = przeszkody;
     }
 }

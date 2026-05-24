@@ -73,7 +73,13 @@ public class Editor {
                 break;
             case "load_from_file":
                 output.println("Loading chessboard from file...");
-                fileManager.load(fromInput[1], board);
+                ChessBoard loaded = fileManager.load(fromInput[1], board.getKnight());
+                if(loaded != null){
+                    board = loaded;
+                    output.println("Loaded from: " + fromInput[1]);
+                } else {
+                    output.println("Error: couldn't load from file.");
+                }
                 break;
             case "exit":
                 //System.exit(0);
