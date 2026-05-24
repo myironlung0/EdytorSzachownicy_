@@ -48,7 +48,7 @@ public class FileManager {
                 board.placeKnight(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
             }
 
-            String[] obstacleLines = breader.readLine().split("="); // obstacles=(x,y);(x1,y1);...
+            String[] obstacleLines = breader.readLine().split("="); // obstacles=x,y;x1,y1;...
             if(!obstacleLines[1].isEmpty()){
                 for(String points : obstacleLines[1].split(";")){
                     String[] obCoords = points.split(",");
