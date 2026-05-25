@@ -89,6 +89,7 @@ public class Editor {
                 //System.exit(0);
                 output.println("CYA!");
                 System.exit(0);
+                break;
             default:
                 output.println("Unknown command.");
                 break;
