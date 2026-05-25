@@ -45,7 +45,7 @@ public class Editor {
     }
 
     private void processCommand(String userInput) {
-        // TODO: switch case z komendami
+        // TODO: co jesli probuje dodac obtacles bez create chessboard? czy knight powinien miec default placement?
         String[] fromInput = userInput.toLowerCase().split(" ");
         String command = fromInput[0];
         switch (command) {
@@ -63,6 +63,10 @@ public class Editor {
                 board.placeKnight(kX, kY);
                 break;
             case "show_attacks":
+                if (board.getKnightPosition() == null) {
+                    output.println("Error: place knight first (move_knight [x] [y])");
+                    break;
+                }
                 Set<Point> attacked = board.getAttackedFields();
                 output.println("Attacked fields:");
                 for(Point p : attacked){ output.println("  (" + p.x + "," + p.y + ")"); }

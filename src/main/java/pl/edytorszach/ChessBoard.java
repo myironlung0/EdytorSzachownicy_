@@ -11,6 +11,14 @@ public class ChessBoard {
     private Set<Point> obstacles;
     private Set<Point> mirrors;
 
+    public ChessBoard(KnightInterface knight) {
+        this.n = 8;
+        this.knight = knight;
+        this.obstacles = new HashSet<>();
+        this.mirrors = new HashSet<>();
+        this.knightPosition = null;
+    }
+
     public ChessBoard(int n, KnightInterface knight) {
         this.n = n;
         this.knight = knight;
