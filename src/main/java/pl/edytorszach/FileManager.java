@@ -6,9 +6,9 @@ import java.io.*;
 import java.util.Set;
 import java.util.StringJoiner;
 
-public class FileManager {
+public class FileManager implements FileManagerInterface {
 
-
+    @Override
     public void save(String path, ChessBoard board){
         try(BufferedWriter bwriter = new BufferedWriter(new FileWriter(path))){
             bwriter.write("n=" + board.getN());
@@ -36,6 +36,7 @@ public class FileManager {
         }
     }
 
+    @Override
     public ChessBoard load(String path, KnightInterface knight){
         try(BufferedReader breader = new BufferedReader(new FileReader(path))){
             String[] sizeLines = breader.readLine().split("=");

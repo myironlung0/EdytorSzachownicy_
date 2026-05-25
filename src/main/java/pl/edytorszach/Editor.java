@@ -11,13 +11,13 @@ import java.util.Set;
 
 public class Editor {
     private ChessBoard board;
-    private FileManager fileManager;
+    private FileManagerInterface fileManager;
 
     // for io streams
     private final BufferedReader input;
     private final PrintStream output;
 
-    public Editor(ChessBoard board, FileManager fileManager, BufferedReader input, PrintStream output) {
+    public Editor(ChessBoard board, FileManagerInterface fileManager, BufferedReader input, PrintStream output) {
         this.board = board;
         this.fileManager = fileManager;
         this.input = input;
@@ -45,7 +45,6 @@ public class Editor {
     }
 
     private void processCommand(String userInput) {
-        // TODO: co jesli probuje dodac obtacles bez create chessboard? czy knight powinien miec default placement?
         String[] fromInput = userInput.toLowerCase().split(" ");
         String command = fromInput[0];
         switch (command) {
@@ -58,9 +57,13 @@ public class Editor {
                 board.addObstacle(x, y);
                 break;
             case "move_knight":
-                int kX = Integer.parseInt(fromInput[1]);
-                int kY = Integer.parseInt(fromInput[2]);
-                board.placeKnight(kX, kY);
+                try {
+                    int kX = Integer.parseInt(fromInput[1]);
+                    int kY = Integer.parseInt(fromInput[2]);
+                    board.placeKnight(kX, kY);
+                } catch (IllegalArgumentException e) {
+                    output.println("Error: " + e.getMessage());
+                }
                 break;
             case "show_attacks":
                 if (board.getKnightPosition() == null) {
@@ -69,7 +72,7 @@ public class Editor {
                 }
                 Set<Point> attacked = board.getAttackedFields();
                 output.println("Attacked fields:");
-                for(Point p : attacked){ output.println("  (" + p.x + "," + p.y + ")"); }
+                for(Point p : attacked){ output.println("(" + p.x + "," + p.y + ")"); }
                 break;
             case "save_to_file":
                 output.println("Saving chessboard to file...");
