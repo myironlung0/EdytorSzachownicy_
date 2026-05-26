@@ -83,9 +83,9 @@ public class EditorTest {
         editor.run();
 
         String result = outputStream.toString();
-        System.out.println("=== OUTPUT ===");
-        System.out.println(result);
-        System.out.println("=== END ===");
+//        System.out.println("=== OUTPUT ===");
+//        System.out.println(result);
+//        System.out.println("=== END ===");
         assertTrue(result.contains("(2,1)"));
     }
 
